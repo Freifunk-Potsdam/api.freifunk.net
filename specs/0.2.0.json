@@ -1,15 +1,15 @@
 { "schema" :
 	{
 		"type":"object",
-		"description": "Freifunk Community API 0.1",
+		"description": "Freifunk Community API 0.2.0",
 		"required":false,
 		"properties":{
 			"api": {
 				"title":"API",
 				"type":"string",
 				"description": "The Freifunk Community API version you use",
-				"enum" : ["0.1"],
-				"default" : "0.1",
+				"enum" : ["0.1","0.2.0"],
+				"default" : "0.2.0",
 				"required":true
 			},
 			"name": {
@@ -142,36 +142,30 @@
 				"required":true
 			},
 			"events": {
+				"title":"Events",
+				"type":"string",
+				"description": "URL to your calendar ics file that can be imported to a global calendar",
+				"required":false
+			},
+			"timeline": {
 				"type":"array",
-				"description": "These are events something like 'X has entered/triggered/did Y at timestamp Z'",
+				"description": "These are lifetime events something like date of birth (and rebirth :-) of your community or other important milestones ",
 				"required":false,
 				"items":
 				{
 					"type":"object",
 					"required":false,
 					"properties":{
-						"extra": {
-							"title":"Extra information",
+						"decription": {
+							"title":"Description",
 							"type":"string",
-							"description": "An custom text field",
-							"required":false
-						},
-						"title": {
-							"title":"Title",
-							"type":"string",
-							"description": "name of the event",
+							"description": "description of your lifetime event",
 							"required":false
 						},
 						"timestamp": {
 							"title":"Timestamp",
-							"type":"number",
-							"description": "Unix timestamp when the event happens",
-							"required":false
-						},
-						"location": {
-							"title":"Location",
 							"type":"string",
-							"description": "location of the event",
+							"description": "ISO timestamp when the event happened",
 							"required":false
 						}
 					}
@@ -241,6 +235,45 @@
 						"type":"string",
 						"description": "A free-form string something like 'open for public', 'members only' or whatever you want it to be)",
 						"required":false
+					}
+				}
+			},
+			"nodeMaps": {
+				"type":"array",
+				"description": "maps of nodes or topology your community provides",
+				"required":false,
+				"items":{
+					"type":"object",
+					"required":false,
+					"properties": {
+						"url": {
+							"title":"Url of the map",
+							"type":"string",
+							"description":"the url where the map is located",
+							"required":false
+						},
+						"interval": {
+							"title":"interval",
+							"type":"string",
+							"description":"how often the map will be refreshed",
+							"required":false
+						},
+						"technicalType": {
+							"title":"map technical type",
+							"type":"string",
+							"description":"the kind of map is used",
+							"enum":["", "ffmap", "olsr-dot","openwifimap"],
+							"default":"",
+							"required":false
+						},
+						"mapType": {
+							"title":"map type human readable",
+							"type":"string",
+							"description":"the kind of data the map provides",
+							"enum":["","geographical","structural","list/status"],
+							"default":"",
+							"required":false
+						}
 					}
 				}
 			},
